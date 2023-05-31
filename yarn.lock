@@ -633,10 +633,10 @@
   "resolved" "https://registry.npmjs.org/yallist/-/yallist-4.0.0.tgz"
   "version" "4.0.0"
 
-"youtube-dl-exec@^2.4.4":
-  "integrity" "sha512-vCBdcY3IK3//wZbJDPOVVufZpYNCylaUSGB/PzgU/5jJqUqJlpVdw8Qt4RA770dT18mN7PfBD7zOOlmkTTEh0A=="
-  "resolved" "https://registry.npmjs.org/youtube-dl-exec/-/youtube-dl-exec-2.4.4.tgz"
-  "version" "2.4.4"
+"youtube-dl-exec@^2.4.0-beta.0":
+  "integrity" "sha512-7Syphbnc3xbSHuuY59zzfiZRAmXspxzHCx7aY02XUaFDonDW1c2hRch3o1z+0Y+Cgq3TQ8ouaYe04aCcJ8N88g=="
+  "resolved" "https://registry.npmjs.org/youtube-dl-exec/-/youtube-dl-exec-2.4.0-beta.0.tgz"
+  "version" "2.4.0-beta.0"
   dependencies:
     "bin-version-check" "~5.0.0"
     "dargs" "~7.0.0"
