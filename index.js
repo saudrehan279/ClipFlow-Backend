@@ -10,7 +10,7 @@ app.use(cors({
 }));
 
 app.get("/", async (req, res) => {
-     res.status(200).send("OK")
+     res.status(200).send("This site is working!")
 })
 
 app.get("/getUrls", async (req, res) => {
