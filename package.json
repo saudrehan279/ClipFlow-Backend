@@ -12,6 +12,6 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.2",
-    "youtube-dl-exec": "^2.4.0-beta.0"
+    "youtube-dl-exec": "^2.4.3"
   }
 }

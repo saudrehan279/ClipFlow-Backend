@@ -15,19 +15,38 @@ app.get("/", async (req, res) => {
 
 app.get("/getUrls", async (req, res) => {
      try {
-          // let url = "https://www.youtube.com/watch?v=jJvQEtYvwTk";
           let url = req.query.url
 
           const options = {
                dumpSingleJson: true,
-               noCheckCertificates: true,
-               noWarnings: true,
           };
 
           const data = await youtubedl(url, options);
+          let arr = [];
 
-          res.status(200).send(data)
+          data.formats.map(item => {
+               if (item.audio_channels === undefined) {
+                    arr.push({
+                         ...item,
+                         thumbnail: data.thumbnail,
+                         title: data.title,
+                         extractor_key: data.extractor_key,
+                         download: false,
+                    })
+               }
+               else if (item.audio_channels != null) {
+                    arr.push({
+                         ...item,
+                         thumbnail: data.thumbnail,
+                         title: data.title,
+                         extractor_key: data.extractor_key
+                    })
+               }
+          })
+
+          res.status(200).send(arr)
      } catch (error) {
+          console.log(error)
           res.status(500).send(error)
      }
 })
