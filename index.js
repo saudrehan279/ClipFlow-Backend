@@ -23,7 +23,7 @@ app.get("/getUrls", async (req, res) => {
 
           const data = await youtubedl(url, options);
           let arr = [];
-          console.log({ data })
+          // console.log({ data })
 
           if (data.extractor == "facebook") {
                data.formats.map(item => {
