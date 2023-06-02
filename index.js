@@ -19,6 +19,9 @@ app.get("/getUrls", async (req, res) => {
 
           const options = {
                dumpSingleJson: true,
+               noCheckCertificates: true,
+               noWarnings: true,
+               preferFreeFormats: true,
           };
 
           const data = await youtubedl(url, options);
