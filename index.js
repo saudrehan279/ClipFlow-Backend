@@ -23,52 +23,26 @@ app.get("/getUrls", async (req, res) => {
 
           const data = await youtubedl(url, options);
           let arr = [];
-          // console.log({ data })
 
-          if (data.extractor == "facebook") {
-               data.formats.map(item => {
-                    if (item.resolution == null) {
-                         if (item.audio_channels === undefined) {
-                              arr.push({
-                                   ...item,
-                                   thumbnail: data.thumbnail,
-                                   title: data.title,
-                                   extractor_key: data.extractor_key,
-                                   download: false,
-                              })
-                         }
-                         else if (item.audio_channels != null) {
-                              arr.push({
-                                   ...item,
-                                   thumbnail: data.thumbnail,
-                                   title: data.title,
-                                   extractor_key: data.extractor_key
-                              })
-                         }
-                    }
-               })
-          }
-          else {
-               data.formats.map(item => {
-                    if (item.audio_channels === undefined) {
-                         arr.push({
-                              ...item,
-                              thumbnail: data.thumbnail,
-                              title: data.title,
-                              extractor_key: data.extractor_key,
-                              download: false,
-                         })
-                    }
-                    else if (item.audio_channels != null) {
-                         arr.push({
-                              ...item,
-                              thumbnail: data.thumbnail,
-                              title: data.title,
-                              extractor_key: data.extractor_key
-                         })
-                    }
-               })
-          }
+          data.formats.map(item => {
+               if (item.audio_channels === undefined) {
+                    arr.push({
+                         ...item,
+                         thumbnail: data.thumbnail,
+                         title: data.title,
+                         extractor_key: data.extractor_key,
+                         download: false,
+                    })
+               }
+               else if (item.audio_channels != null) {
+                    arr.push({
+                         ...item,
+                         thumbnail: data.thumbnail,
+                         title: data.title,
+                         extractor_key: data.extractor_key
+                    })
+               }
+          })
 
           res.status(200).send(arr)
      } catch (error) {
