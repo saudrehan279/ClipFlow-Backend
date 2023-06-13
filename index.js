@@ -119,13 +119,64 @@ app.get("/getUrls", async (req, res) => {
                };
 
                const data = await youtubedl(url, options);
-               // console.log({ data })
+               // console.log("formats", data.formats)
 
-               if (data.extractor == "facebook") {
-                    data.formats.map(item => {
-                         if (item.resolution == null) {
-                              if (item.audio_channels === undefined) {
-                                   arr.push({
+               let hello = []
+
+               // console.log(data.extractor)
+
+
+
+               switch (data.extractor) {
+                    case "youtube":
+                         data.formats.map((item) => {
+                              if (item.audio_channels != null) {
+                                   if (item.resolution == "audio only" && item.format_id == "251") {
+                                        hello.push({
+                                             ...item,
+                                             thumbnail: data.thumbnail,
+                                             title: data.title,
+                                             extractor_key: data.extractor_key
+                                        })
+                                   }
+                                   else if (item.resolution != "audio only") {
+                                        hello.push({
+                                             ...item,
+                                             thumbnail: data.thumbnail,
+                                             title: data.title,
+                                             extractor_key: data.extractor_key
+                                        })
+                                   }
+                              }
+                         })
+
+                    case "facebook":
+                         data.formats.map(item => {
+                              if (item.resolution == null) {
+                                   if (item.audio_channels === undefined) {
+                                        hello.push({
+                                             ...item,
+                                             thumbnail: data.thumbnail,
+                                             title: data.title,
+                                             extractor_key: data.extractor_key,
+                                             download: false,
+                                        })
+                                   }
+                                   else if (item.audio_channels != null) {
+                                        hello.push({
+                                             ...item,
+                                             thumbnail: data.thumbnail,
+                                             title: data.title,
+                                             extractor_key: data.extractor_key
+                                        })
+                                   }
+                              }
+                         })
+
+                    case "twitter":
+                         data.formats.map((item) => {
+                              if (item.quality === undefined) {
+                                   hello.push({
                                         ...item,
                                         thumbnail: data.thumbnail,
                                         title: data.title,
@@ -133,40 +184,61 @@ app.get("/getUrls", async (req, res) => {
                                         download: false,
                                    })
                               }
-                              else if (item.audio_channels != null) {
-                                   arr.push({
-                                        ...item,
-                                        thumbnail: data.thumbnail,
-                                        title: data.title,
-                                        extractor_key: data.extractor_key
-                                   })
-                              }
-                         }
-                    })
-               }
-               else {
-                    data.formats.map(item => {
-                         if (item.audio_channels === undefined) {
-                              arr.push({
-                                   ...item,
-                                   thumbnail: data.thumbnail,
-                                   title: data.title,
-                                   extractor_key: data.extractor_key,
-                                   download: false,
-                              })
-                         }
-                         else if (item.audio_channels != null) {
-                              arr.push({
-                                   ...item,
-                                   thumbnail: data.thumbnail,
-                                   title: data.title,
-                                   extractor_key: data.extractor_key
-                              })
-                         }
-                    })
+                         })
+                    case "TikTok":
+                         hello.push(data.formats.reverse()[0])
                }
 
-               res.status(200).send(arr)
+               res.status(200).send(hello.reverse())
+
+
+
+               // if (data.extractor == "facebook") {
+               //      data.formats.map(item => {
+               //           if (item.resolution == null) {
+               //                if (item.audio_channels === undefined) {
+               //                     arr.push({
+               //                          ...item,
+               //                          thumbnail: data.thumbnail,
+               //                          title: data.title,
+               //                          extractor_key: data.extractor_key,
+               //                          download: false,
+               //                     })
+               //                }
+               //                else if (item.audio_channels != null) {
+               //                     arr.push({
+               //                          ...item,
+               //                          thumbnail: data.thumbnail,
+               //                          title: data.title,
+               //                          extractor_key: data.extractor_key
+               //                     })
+               //                }
+               //           }
+               //      })
+               // }
+               // else {
+               //      data.formats.map(item => {
+               //           if (item.audio_channels === undefined) {
+               //                arr.push({
+               //                     ...item,
+               //                     thumbnail: data.thumbnail,
+               //                     title: data.title,
+               //                     extractor_key: data.extractor_key,
+               //                     download: false,
+               //                })
+               //           }
+               //           else if (item.audio_channels != null) {
+               //                arr.push({
+               //                     ...item,
+               //                     thumbnail: data.thumbnail,
+               //                     title: data.title,
+               //                     extractor_key: data.extractor_key
+               //                })
+               //           }
+               //      })
+               // }
+
+               // res.status(200).send(arr)
 
 
           }
