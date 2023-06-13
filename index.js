@@ -189,7 +189,7 @@ app.get("/getUrls", async (req, res) => {
                          hello.push(data.formats.reverse()[0])
                }
 
-               res.status(200).send(hello.reverse())
+               res.status(200).send(hello)
 
 
 
