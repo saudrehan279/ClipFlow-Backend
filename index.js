@@ -131,7 +131,7 @@ app.get("/getUrls", async (req, res) => {
                     case "youtube":
                          data.formats.map((item) => {
                               if (item.audio_channels != null) {
-                                   if (item.resolution == "audio only" && item.format_id == "251") {
+                                   if (item.resolution === "audio only" && item.format_id == "251") {
                                         hello.push({
                                              ...item,
                                              thumbnail: data.thumbnail,
@@ -140,15 +140,19 @@ app.get("/getUrls", async (req, res) => {
                                         })
                                    }
                                    else if (item.resolution != "audio only") {
-                                        hello.push({
-                                             ...item,
-                                             thumbnail: data.thumbnail,
-                                             title: data.title,
-                                             extractor_key: data.extractor_key
-                                        })
+                                        console.log(Number(item.height) >= 144)
+                                        if (Number(item.height) >= 144) {
+                                             hello.push({
+                                                  ...item,
+                                                  thumbnail: data.thumbnail,
+                                                  title: data.title,
+                                                  extractor_key: data.extractor_key
+                                             })
+                                        }
                                    }
                               }
                          })
+                         break
 
                     case "facebook":
                          data.formats.map(item => {
@@ -172,6 +176,7 @@ app.get("/getUrls", async (req, res) => {
                                    }
                               }
                          })
+                         break
 
                     case "twitter":
                          data.formats.map((item) => {
@@ -185,8 +190,13 @@ app.get("/getUrls", async (req, res) => {
                                    })
                               }
                          })
+                         break
                     case "TikTok":
                          hello.push(data.formats.reverse()[0])
+                         break
+                    default:
+                         hello = data.formats
+                         break
                }
 
                res.status(200).send(hello)
