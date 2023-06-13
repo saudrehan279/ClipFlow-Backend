@@ -140,7 +140,7 @@ app.get("/getUrls", async (req, res) => {
                                         })
                                    }
                                    else if (item.resolution != "audio only") {
-                                        console.log(Number(item.height) >= 144)
+                                        // console.log(Number(item.height) >= 144)
                                         if (Number(item.height) >= 144) {
                                              hello.push({
                                                   ...item,
