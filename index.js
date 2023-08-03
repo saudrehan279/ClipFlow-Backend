@@ -4,7 +4,7 @@ const youtubedl = require('youtube-dl-exec');
 const cheerio = require("cheerio");
 const axios = require("axios")
 
-const port = 3000;
+const port = 4000;
 const app = express();
 
 app.use(cors({
@@ -260,12 +260,6 @@ app.get("/getUrls", async (req, res) => {
 
 
 
-app.listen(port, () => {
-     console.log(`Server running at http://localhost:${port}`)
-})
-
-
-
-
-
-
+app.listen(port, '0.0.0.0', () => {
+     console.log(`Server is running on http://0.0.0.0:${port}`);
+});
